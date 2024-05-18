@@ -31,6 +31,12 @@ BMP085 myBarometer; // pressure sensor
 DHT dht(DHTPIN, DHTTYPE); // dht sensor
 BlynkTimer timer;
 
+void sendSensor() 
+{
+  humidity = dht.readHumidity();
+  temperature = dht.readTemperature();
+}
+
 void setup()
 {
   Serial.begin(115200);
