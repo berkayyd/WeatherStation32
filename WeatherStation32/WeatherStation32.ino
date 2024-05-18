@@ -2,6 +2,15 @@
 #define BLYNK_TEMPLATE_ID "TMPL6radUUFbx"
 #define BLYNK_TEMPLATE_NAME "WeatherStation32"
 
+#include <WiFi.h> // required libraries
+#include <WiFiClient.h>
+#include <BlynkSimpleEsp32.h>
+#include "Arduino.h"
+#include "DHT.h"
+#include "SI114X.h"
+#include "BMP085.h"
+#include <Wire.h>
+
 char auth[] = "mqxbXj-ho2-C25G-uZICtj62AgjdGd0W";
 char ssid[] = "VodafoneNet-4d2a80";
 char pass[] = "8U5zBmMesJ"; 
@@ -21,3 +30,14 @@ BMP085 myBarometer; // pressure sensor
 
 DHT dht(DHTPIN, DHTTYPE); // dht sensor
 BlynkTimer timer;
+
+void setup()
+{
+
+}
+
+void loop() 
+{
+  Blynk.run()
+  timer.run()
+}
