@@ -14,4 +14,10 @@ float uv;
 float visible;
 float ir;
 
+SI114X SI1145 = SI114X(); // sunlight sensor
+BMP085 myBarometer; // pressure sensor
+
 #define DHTPIN 5
+
+DHT dht(DHTPIN, DHTTYPE); // dht sensor
+BlynkTimer timer;
