@@ -27,6 +27,7 @@ SI114X SI1145 = SI114X(); // sunlight sensor
 BMP085 myBarometer; // pressure sensor
 
 #define DHTPIN 5
+#define DHTTYPE DHT11
 
 DHT dht(DHTPIN, DHTTYPE); // dht sensor
 BlynkTimer timer;
@@ -35,6 +36,24 @@ void sendSensor()
 {
   humidity = dht.readHumidity();
   temperature = dht.readTemperature();
+  if (isnan(humidity) || isnan(temperature)) 
+  {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  pressure = myBarometer.bmp085GetPressure(myBarometer.bmp085ReadUP()); 
+  mbar = pressure / 100; 
+  visible = SI1145.ReadVisible(); // visible radiation
+  ir = SI1145.ReadIR(); // IR radiation
+  uv = SI1145.ReadUV(); // UV index
+
+  Blynk.virtualWrite(V0, temperature); 
+  Blynk.virtualWrite(V1, humidity);
+  Blynk.virtualWrite(V2, mbar);
+  Blynk.virtualWrite(V3, visible);
+  Blynk.virtualWrite(V4, ir);
+  //Blynk.virtualWrite(V5, uv);
 }
 
 void setup()
@@ -52,6 +71,7 @@ void setup()
   delay(1000);
   Blynk.begin(auth, ssid, pass);
   delay(1000);
+  timer.setInterval(1000L, sendSensor); 
 }
 
 void loop() 
