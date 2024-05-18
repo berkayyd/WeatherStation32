@@ -33,7 +33,19 @@ BlynkTimer timer;
 
 void setup()
 {
-
+  Serial.begin(115200);
+  Serial.println("Beginning Si1145!");
+  while (!SI1145.Begin())
+  {
+    Serial.println("Si1145 is not ready!");
+    delay(1000);
+  }
+  Serial.println("Si1145 is ready!");
+  myBarometer.init();
+  dht.begin();
+  delay(1000);
+  Blynk.begin(auth, ssid, pass);
+  delay(1000);
 }
 
 void loop() 
