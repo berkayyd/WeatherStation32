@@ -62,7 +62,7 @@ void sendSensor()
     Blynk.logEvent("uv_radiation");
     digitalWrite(LED_PIN, HIGH); 
   }
-  else if (temperature > 25)
+  else if (temperature > 35)
   {
     Blynk.logEvent("high_temperature");
     digitalWrite(LED_PIN, HIGH); 
